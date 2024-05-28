@@ -1,10 +1,12 @@
-@doc """
-A script to fetch logs from Revtime, send them to Prodops, and return a standup artifact.
+# A script to fetch logs from Revtime, send them to Prodops, and return a standup artifact.
 
-Takes 2 command-line arguments:
- - `days_ago`: the number of days in the past to fetch logs from Revtime
- - `today`: what you plan to do today
-"""
+# Takes 2 command-line arguments:
+#  - `days_ago`: the number of days in the past to fetch logs from Revtime
+#  - `today`: what you plan to do today
+#
+# Example:
+#
+#   mix run lib/standops.exs 4 "do some work"
 
 alias Standops.Revtime
 
