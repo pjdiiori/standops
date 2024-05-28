@@ -1,4 +1,5 @@
 A script to fetch logs from Revtime, send them to prodops, and create a standup post.
+Automatically copies the artifact to your clipboard.
 
 ```sh
 ➜  standops git:(main) ✗ mix run lib/standops.exs 4 "Sling some code"
