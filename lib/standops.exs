@@ -11,6 +11,8 @@
 alias Standops.Revtime
 
 [days_ago, today] = System.argv()
+project_name = Application.get_env(:standops, :project_name)
+prompt_template_name = Application.get_env(:standops, :prompt_template_name)
 
 logs = days_ago |> String.to_integer() |> Revtime.logs_from()
 IO.puts("fetched logs from Revtime")
@@ -19,7 +21,7 @@ project_id =
   case ProdopsEx.Project.list() do
     {:ok, %{response: %{"projects" => projects}}} ->
       projects
-      |> Enum.find(&(Map.get(&1, "name") == Application.get_env(:standops, :project_name)))
+      |> Enum.find(&(Map.get(&1, "name") == project_name))
       |> Map.get("id")
 
     {:error, error} ->
@@ -30,7 +32,7 @@ prompt_template_id =
   case ProdopsEx.PromptTemplate.list("standup") do
     {:ok, %{response: %{"prompt_templates" => prompt_templates}}} ->
       prompt_templates
-      |> Enum.find(&(Map.get(&1, "name") == "Yesterday, Today, Blockers Standup Post"))
+      |> Enum.find(&(Map.get(&1, "name") == prompt_template_name))
       |> Map.get("id")
 
     {:error, error} ->

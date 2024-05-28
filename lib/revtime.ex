@@ -2,11 +2,9 @@ defmodule Standops.Revtime do
   use Timex
 
   @base_url "https://time.revelry.co/api/v1/"
-  @user_id 124
-  @ifp_project_id 302
 
   @spec logs_from(integer(), map()) :: {:ok, [map()]} | {:error, any()}
-  def logs_from(days_ago \\ 1, params \\ %{project_id: @ifp_project_id}) do
+  def logs_from(days_ago \\ 1, params \\ %{project_id: project_id()}) do
     start_time =
       Timex.local()
       |> Timex.beginning_of_day()
@@ -15,7 +13,7 @@ defmodule Standops.Revtime do
 
     query =
       Map.merge(
-        %{user_id: @user_id, start_time: start_time, end_time: Timex.end_of_day(start_time)},
+        %{user_id: user_id(), start_time: start_time, end_time: Timex.end_of_day(start_time)},
         params
       )
 
@@ -52,7 +50,7 @@ defmodule Standops.Revtime do
     end
   end
 
-  defp api_key() do
-    Application.get_env(:standops, Standops.Revtime)[:api_key]
-  end
+  defp api_key(), do: Application.get_env(:standops, Standops.Revtime)[:api_key]
+  defp user_id(), do: Application.get_env(:standops, Standops.Revtime)[:user_id]
+  defp project_id(), do: Application.get_env(:standops, Standops.Revtime)[:project_id]
 end
