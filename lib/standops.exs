@@ -1,3 +1,11 @@
+@doc """
+A script to fetch logs from Revtime, send them to Prodops, and return a standup artifact.
+
+Takes 2 command-line arguments:
+ - `days_ago`: the number of days in the past to fetch logs from Revtime
+ - `today`: what you plan to do today
+"""
+
 alias Standops.Revtime
 
 [days_ago, today] = System.argv()
@@ -9,7 +17,7 @@ project_id =
   case ProdopsEx.Project.list() do
     {:ok, %{response: %{"projects" => projects}}} ->
       projects
-      |> Enum.find(&(Map.get(&1, "name") == "In Field Pro"))
+      |> Enum.find(&(Map.get(&1, "name") == Application.get_env(:standops, :project_name)))
       |> Map.get("id")
 
     {:error, error} ->
