@@ -41,7 +41,7 @@ prompt_template_id =
 
 IO.puts("creating Prodops Artifact...")
 
-{:ok, %{response: %{"artifact" => %{"content" => content}}}} =
+{:ok, %{response: %{"artifact" => %{"content" => content, "id" => artifact_id}}}} =
   ProdopsEx.Artifact.create(%{
     prompt_template_id: prompt_template_id,
     artifact_slug: "standup",
@@ -59,3 +59,5 @@ send(port, {self(), :close})
 
 IO.puts("Copied artifact to clipboard")
 IO.puts(content)
+IO.puts("\n")
+IO.puts("Artifact ID: #{artifact_id}")

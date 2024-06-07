@@ -28,3 +28,5 @@ standops-*.tar
 /.elixir_ls
 
 /config/dev.secret.exs
+
+*.code-workspace
