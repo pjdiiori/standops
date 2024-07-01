@@ -10,6 +10,7 @@ defmodule Standops.Revtime do
       |> Timex.beginning_of_day()
       |> DateTime.add(-days_ago, :day)
       |> Timex.to_datetime("Etc/UTC")
+      |> Timex.beginning_of_day()
 
     query =
       Map.merge(
