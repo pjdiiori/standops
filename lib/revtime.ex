@@ -25,7 +25,8 @@ defmodule Standops.Revtime do
       {:ok, %{"entries" => entries}} ->
         entries
         |> Enum.map(&Map.get(&1, "notes"))
-        |> Enum.join(" // ")
+        |> Enum.reverse()
+        |> Enum.join(~s( \\ ))
 
       {:ok, %{"errors" => errors}} ->
         {:error, inspect(errors)}
